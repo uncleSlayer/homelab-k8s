@@ -1,0 +1,49 @@
+# NGINX Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nagastra-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nagastra-nginx
+
+  template:
+    metadata:
+      labels:
+        app: nagastra-nginx
+    spec:
+      containers:
+        - name: nagastra-nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+---
+# Postgres Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nagastra-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nagastra-postgres
+  template:
+    metadata:
+      labels:
+        app: nagastra-postgres
+    spec:
+      containers:
+        - name: nagastra-postgres
+          image: postgres:15
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "postgres"
+            - name: POSTGRES_DB
+              value: "postgres"
+          ports:
+            - containerPort: 5432
