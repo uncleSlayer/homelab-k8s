@@ -26,13 +26,5 @@ When you update the deployment, it will create a new replicaSet, and then it wil
 Whereas in case of replicaSet, it will create a new replicaSet, and then it will update the pods in the new replicaSet.
 
 ## How port works in a service
-Outside world
-│
-▼
-<NodeIP>:31337 ← nodePort (host machine)
-│
-▼
-Service Port: 5432 ← port (Kubernetes Service layer)
-│
-▼
-Pod:5432 ← targetPort (container app inside Pod)
+![image](https://github.com/user-attachments/assets/236a5823-9d06-4a14-a374-8ad8523e8479)
+
