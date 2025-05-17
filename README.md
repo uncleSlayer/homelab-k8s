@@ -28,3 +28,8 @@ Whereas in case of replicaSet, it will create a new replicaSet, and then it will
 ## How port works in a service
 ![image](https://github.com/user-attachments/assets/236a5823-9d06-4a14-a374-8ad8523e8479)
 
+
+## New updates
+- So in order to manage routing inside k8s clusters, we don't need to use nginx. Instead we will use nginx-ingress.
+- Ingress-nginx is a separate thing and sits between the k8s cluster and the outside world.
+- Ingress-nginx can be used to do all the things a normal nginx container could do.
