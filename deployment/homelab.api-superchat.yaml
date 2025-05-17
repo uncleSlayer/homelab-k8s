@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homelab-api-zingping
+spec:
+  selector:
+    matchLabels:
+      app: homelab-api-zingping
+  template:
+    metadata:
+      labels:
+        app: homelab-api-zingping
+    spec:
+      containers:
+        - name: homelab-api-zingping
+          image: sid00100/zingping 
+          ports:
+            - containerPort: 8080
+
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:postgresql@homelab-postgres:5432/postgres"
+            
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: homelab-api-zingping
+spec:
+  selector:
+    app: homelab-api-zingping
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30009
+
+
+
+# DATABASE_URL=postgresql://siddhant_owner:npg_k0cBUO6zxteQ@ep-shrill-hill-a1dhuwp1-pooler.ap-southeast-1.aws.neon.tech/siddhant?sslmode=require
+# JWT_SECRET=secret
+# REDIS_TOKEN=Ae_FAAIjcDEyODMwYjg0NjhkY2M0MDI2YTdlMzc5N2Q1Njk2NTllZXAxMA
+# REDIS_PORT=6379
+# REDIS_HOST=singular-barnacle-61381.upstash.io
+# POSTGRES_USER=postgres
+# POSTGRES_PASSWORD=postgres
+# POSTGRES_DB=postgres
