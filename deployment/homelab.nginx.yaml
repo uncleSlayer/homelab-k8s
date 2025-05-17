@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homelab-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homelab-nginx
+  template:
+    metadata:
+      labels:
+        app: homelab-nginx
+    spec:
+      containers:
+        - name: homelab-nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homelab-nginx
+spec:
+  selector:
+    app: homelab-nginx
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30001
+---
+
